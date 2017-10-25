@@ -20,6 +20,8 @@ class SomeValidator extends StandardClass implements ValidatorInterface;
 // Some = { Int, String, Float, Bool }. Adding new validator is quite easy.
 
 class RegexValidator extends StringValidator;
+
+interface ValidatorAwareInterface;
 ```
 
 ## php-cc/enum
@@ -39,7 +41,24 @@ class SomeUniqueEnum extends UniqueEnum;
 ```php
 namespace PCC/Collection;
 
-abstract class Collection implements Traversable;
-class SomeCollection extends Collection;
-// Some = { Int, String }. Adding new enum is quite easy.
+abstract class Collection extends StandardClass implements Traversable {
+    abstract protected function getValidator( ) : ValidatorInterface;
+}
+```
+
+## php-cc/map
+```php
+namespace PCC/Map;
+
+abstract class Map extends Collection;
+```
+
+## php-cc/vector
+```php
+namespace PCC/Vector;
+
+abstract class Vector extends Collection;
+class SomeVector extends Collection;
+// Some = { Int, String, Float, Bool }. Adding new collectio is quite easy.
+
 ```
