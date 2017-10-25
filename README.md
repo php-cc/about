@@ -4,24 +4,35 @@ About PHP Class Collection
 # classes
 
 ## php-cc/std
+Provide basic magic methods such as `__get`, `__set`, `__call` and `__callStatic` to prevent unintended dynamic property insertion and to give parent method such as `parent::__get` for derived classes.
 ```php
 namespace PCC\Standard;
 
 class StandardClass;
-
 ```
 
 ## php-cc/validate
 ```php
 namespace PCC\Validate;
 
-interface ValidatorInterface;
+interface ValidatorInterface {
+    public function validate( $value ) : bool;
+}
 class SomeValidator extends StandardClass implements ValidatorInterface;
 // Some = { Int, String, Float, Bool }. Adding new validator is quite easy.
 
 class RegexValidator extends StringValidator;
 
 interface ValidatorAwareInterface;
+```
+
+```php
+class YourValidator implements ValidatorInterface {
+    public function validate( $value ) : bool {
+        if( /* $value is valid */ ) return true;
+        return false;
+    }
+}
 ```
 
 ## php-cc/enum
