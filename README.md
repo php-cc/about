@@ -8,7 +8,23 @@ Provide basic magic methods such as `__get`, `__set`, `__call` and `__callStatic
 ```php
 namespace PCC\Standard;
 
-class StandardClass;
+class StandardClass {
+    public function __get( string $name ) { throw new InaccessiblePropertyException( static::class, $name ); }
+    /* ... */
+}
+```
+
+```php
+/**
+ * @property string $someProperty
+ */
+class YourClass extends StandardClass {
+    private $valueOfSomeProperty;
+    public function __get( string $name ) {
+        if( $name === 'someProperty' ) return $this->valueOfSomeProperty;
+        return parent::__get( $name );      // always throws InaccessiblePropertyException
+    }
+}
 ```
 
 ## php-cc/validate
